@@ -1,0 +1,34 @@
+.app__input {
+	width: 200px;
+	border-radius: 4px;
+	border: 1px solid #b6d9ee;
+	background-color: #fff;
+	font-size: 18px;
+	outline: none;
+	padding: 10px;
+	margin-bottom: 15px;
+}
+
+.app__button {
+	cursor: pointer;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 18px;
+	font-weight: 600;
+	border-radius: 4px;
+	border: 1px solid #b6d9ee;
+	padding: 10px;
+	background-color: #b6d9ee;
+	transition: background-color 0.2s ease;
+}
+
+.app__button:hover {
+	background-color: #94caec;
+}
+
+.app__button:disabled {
+	cursor: auto;
+	background-color: #d5e9f6;
+}
