@@ -16,13 +16,14 @@ function App() {
 
 	const onFormSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		setResults([]);
+
 		const element = e.currentTarget.elements.namedItem("number") as HTMLInputElement;
 		const value = Number(element.value);
 		if (!value) return setError("Enter a number from 1 to 100");
 
 		setError("");
 		setIsLoading(true);
-		setResults([]);
 
 		makeRequests(1, value, value);
 	};
