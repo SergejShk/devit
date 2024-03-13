@@ -16,44 +16,38 @@ function App() {
 	const onFormSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		setIsLoading(true);
+		setResults([]);
 
-		let indexCount = [];
-		for (let i = 1; i <= 1000; i += 1) {
-			indexCount.push(i);
-		}
+		makeRequests(1, Number(inputValue), Number(inputValue));
+	};
 
-		indexCount.map(async (index, idx, arr) => {
-			await createPromise(index, Number(inputValue)).finally(() => {
-				if (idx === arr.length - 1) {
-					setIsLoading(false);
+	const makeRequests = (startIndex: number, endIndex: number, step: number) => {
+		const MAX_COUNT_REQUEST = 1000;
+		const delay = startIndex === 1 ? 0 : 1000;
+
+		if (startIndex > MAX_COUNT_REQUEST) return setIsLoading(false);
+
+		setTimeout(() => {
+			const promises = [];
+			for (let i = startIndex; i <= endIndex; i += 1) {
+				const promise = axios
+					.post("http://localhost:8080/api", { index: i })
+					.then(({ data }) => setResults((prev) => [...prev, data.index]))
+					.catch((err) => console.log(err));
+
+				promises.push(promise);
+			}
+
+			Promise.all(promises).then(() => {
+				if (endIndex + step > MAX_COUNT_REQUEST || endIndex + step === MAX_COUNT_REQUEST) {
+					return makeRequests(startIndex + step, MAX_COUNT_REQUEST, step);
+				}
+
+				if (startIndex < MAX_COUNT_REQUEST) {
+					makeRequests(startIndex + step, endIndex + step, step);
 				}
 			});
-		});
-
-		indexCount = [];
-	};
-
-	const makeRequest = async (index: number) => {
-		try {
-			const { data } = await axios.post("http://localhost:8080/api", { index });
-
-			return data.index;
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
-	const createPromise = (index: number, inputValue: number) => {
-		const delay = index % inputValue === 0 ? 1000 : 0;
-
-		return new Promise<void>((resolve) => {
-			setTimeout(async () => {
-				const resIndex = await makeRequest(index);
-				setResults((prev) => [...prev, resIndex]);
-
-				resolve();
-			}, delay);
-		});
+		}, delay);
 	};
 
 	return (
@@ -68,6 +62,7 @@ function App() {
 					min={0}
 					max={100}
 					required
+					autoComplete="off"
 				/>
 
 				<button className="app__button" type="submit" disabled={isLoading}>

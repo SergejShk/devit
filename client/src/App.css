@@ -6,6 +6,7 @@
 	font-size: 18px;
 	outline: none;
 	padding: 10px;
+	color: #484848;
 	margin-bottom: 15px;
 }
 
@@ -18,17 +19,17 @@
 	font-size: 18px;
 	font-weight: 600;
 	border-radius: 4px;
-	border: 1px solid #b6d9ee;
+	border: 1px solid #6abbee;
 	padding: 10px;
-	background-color: #b6d9ee;
+	background-color: #6abbee;
 	transition: background-color 0.2s ease;
 }
 
 .app__button:hover {
-	background-color: #94caec;
+	background-color: rgb(68, 172, 237);
 }
 
 .app__button:disabled {
 	cursor: auto;
-	background-color: #d5e9f6;
+	background-color: #6abbee;
 }
