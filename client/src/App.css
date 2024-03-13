@@ -1,3 +1,8 @@
+.app__wrapper {
+	position: relative;
+	margin-bottom: 25px;
+}
+
 .app__input {
 	width: 200px;
 	border-radius: 4px;
@@ -32,4 +37,17 @@
 .app__button:disabled {
 	cursor: auto;
 	background-color: #6abbee;
+}
+
+.app__error {
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	left: 50%;
+	transform: translateX(-50%);
+	bottom: -40px;
+	font-size: 14px;
+	color: #e73f3f;
 }
